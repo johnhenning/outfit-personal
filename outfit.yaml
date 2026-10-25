@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "name": "John personal profiles",
+  "profiles": {
+    "john-dev": {
+      "role": "workstation",
+      "presets": [
+        "default",
+        "desktop",
+        "dev",
+        "cloud-ml"
+      ],
+      "include": [
+        "obsidian",
+        "tailscale"
+      ],
+      "preferred": {
+        "browsers": "dia",
+        "editors": "cursor",
+        "terminals": "ghostty"
+      }
+    },
+    "john-compute": {
+      "role": "compute",
+      "presets": [
+        "cloud-ml"
+      ]
+    },
+    "john-media": {
+      "role": "media",
+      "presets": [
+        "default"
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+name: Validate personal overlay
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: personal
+      - uses: actions/checkout@v4
+        with:
+          repository: johnhenning/outfit
+          ref: main
+          path: outfit
+      - uses: actions/checkout@v4
+        with:
+          repository: johnhenning/outfit-profiles
+          ref: main
+          path: profiles
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: outfit/go.mod
+      - working-directory: outfit
+        shell: bash
+        run: |
+          for target in macos-arm64 debian-amd64 fedora-amd64 windows-amd64; do
+            for profile in john-dev john-compute john-media; do
+              go run ./cmd/outfit plan --source ../profiles --personal ../personal --profile "$profile" --target "$target" --json > /dev/null
+            done
+          done
