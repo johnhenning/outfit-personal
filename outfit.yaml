@@ -1,36 +1,260 @@
 {
   "schema": 1,
   "name": "John personal profiles",
+  "packages": [
+    {
+      "id": "john-bartender",
+      "name": "Bartender",
+      "category": "utilities",
+      "desktop": true,
+      "source": "https://formulae.brew.sh/cask/bartender",
+      "installs": {
+        "macos": {
+          "provider": "brew",
+          "package": "bartender",
+          "cask": true
+        }
+      }
+    },
+    {
+      "id": "john-cleanshot-setapp",
+      "name": "CleanShot X (Setapp)",
+      "category": "utilities",
+      "desktop": true,
+      "source": "https://setapp.com/apps/cleanshot",
+      "installs": {
+        "macos": {
+          "provider": "manual",
+          "manual": "After Setapp is installed, sign in and install CleanShot X from the Setapp app. Do not install the standalone edition."
+        }
+      }
+    },
+    {
+      "id": "john-paste-setapp",
+      "name": "Paste (Setapp)",
+      "category": "utilities",
+      "desktop": true,
+      "source": "https://setapp.com/apps/paste",
+      "installs": {
+        "macos": {
+          "provider": "manual",
+          "manual": "After Setapp is installed, sign in and install Paste from the Setapp app. Do not install the standalone edition."
+        }
+      }
+    },
+    {
+      "id": "john-everyday-login-items",
+      "name": "Everyday launch-at-login choices",
+      "category": "utilities",
+      "desktop": true,
+      "source": "https://support.apple.com/guide/mac-help/open-items-automatically-when-you-log-in-mh15189/mac",
+      "installs": {
+        "macos": {
+          "provider": "manual",
+          "manual": "After installing Bartender, Rectangle Pro and Raycast, enable launch at login in each app's settings. Confirm all three in macOS System Settings > General > Login Items & Extensions. No other app has been selected for automatic startup; installers may supply their own defaults."
+        }
+      }
+    }
+  ],
+  "roles": {
+    "john-mac-desktop": {
+      "desktop": true,
+      "packages": [],
+      "dotfiles": []
+    }
+  },
   "profiles": {
-    "john-dev": {
-      "role": "workstation",
-      "presets": [
-        "default",
-        "desktop",
-        "dev",
-        "cloud-ml"
-      ],
+    "john-mac-everyday": {
+      "role": "john-mac-desktop",
       "include": [
+        "onepassword",
+        "chatgpt",
+        "claude",
         "obsidian",
-        "tailscale"
+        "dia",
+        "notion",
+        "spotify",
+        "setapp",
+        "john-cleanshot-setapp",
+        "john-paste-setapp",
+        "john-bartender",
+        "rectangle",
+        "raycast",
+        "john-everyday-login-items"
+      ],
+      "dotfiles": [
+        "ssh",
+        "john-mac-ssh-agent"
+      ],
+      "preferred": {
+        "browsers": "dia"
+      }
+    },
+    "john-mac-dev": {
+      "role": "john-mac-desktop",
+      "include": [
+        "onepassword",
+        "chatgpt",
+        "claude",
+        "obsidian",
+        "dia",
+        "notion",
+        "cmake",
+        "curl",
+        "uv",
+        "gh",
+        "ghostty",
+        "git",
+        "jq",
+        "ninja",
+        "node",
+        "op",
+        "pnpm",
+        "pre-commit",
+        "ruff",
+        "rust",
+        "tailscale",
+        "oh-my-zsh",
+        "powerlevel10k",
+        "tmux",
+        "ripgrep",
+        "fd",
+        "neovim",
+        "chrome",
+        "vscode",
+        "zsh",
+        "bat",
+        "podman",
+        "iterm2",
+        "warp"
+      ],
+      "dotfiles": [
+        "shell",
+        "tmux",
+        "gitignore",
+        "ssh",
+        "john-mac-shell",
+        "john-mac-git",
+        "john-mac-neovim",
+        "john-mac-ssh-agent"
       ],
       "preferred": {
         "browsers": "dia",
-        "editors": "cursor",
-        "terminals": "ghostty"
+        "editors": "vscode",
+        "terminals": "iterm2"
+      }
+    },
+    "john-dev": {
+      "role": "john-mac-desktop",
+      "include": [
+        "onepassword",
+        "chatgpt",
+        "claude",
+        "obsidian",
+        "dia",
+        "notion",
+        "cmake",
+        "curl",
+        "uv",
+        "gh",
+        "ghostty",
+        "git",
+        "jq",
+        "ninja",
+        "node",
+        "op",
+        "pnpm",
+        "pre-commit",
+        "ruff",
+        "rust",
+        "tailscale",
+        "oh-my-zsh",
+        "powerlevel10k",
+        "tmux",
+        "ripgrep",
+        "fd",
+        "neovim",
+        "chrome",
+        "vscode",
+        "zsh",
+        "bat",
+        "podman",
+        "iterm2",
+        "warp"
+      ],
+      "dotfiles": [
+        "shell",
+        "tmux",
+        "gitignore",
+        "ssh",
+        "john-mac-shell",
+        "john-mac-git",
+        "john-mac-neovim",
+        "john-mac-ssh-agent"
+      ],
+      "preferred": {
+        "browsers": "dia",
+        "editors": "vscode",
+        "terminals": "iterm2"
       }
     },
     "john-compute": {
       "role": "compute",
       "presets": [
         "cloud-ml"
+      ],
+      "dotfiles": [
+        "shell",
+        "tmux",
+        "gitignore",
+        "ssh"
       ]
     },
     "john-media": {
       "role": "media",
       "presets": [
         "default"
+      ],
+      "dotfiles": [
+        "shell",
+        "tmux",
+        "ssh"
       ]
     }
-  }
+  },
+  "dotfiles": [
+    {
+      "id": "john-mac-shell",
+      "source": "dotfiles/dot_zshrc.local",
+      "target": ".zshrc.local",
+      "platforms": [
+        "macos"
+      ]
+    },
+    {
+      "id": "john-mac-git",
+      "source": "dotfiles/dot_config/git/config",
+      "target": ".config/git/config",
+      "platforms": [
+        "macos"
+      ]
+    },
+    {
+      "id": "john-mac-neovim",
+      "source": "dotfiles/dot_config/nvim/init.lua",
+      "target": ".config/nvim/init.lua",
+      "platforms": [
+        "macos"
+      ]
+    },
+    {
+      "id": "john-mac-ssh-agent",
+      "source": "dotfiles/private_dot_ssh/config.d/1password.conf",
+      "target": ".ssh/config.d/1password.conf",
+      "platforms": [
+        "macos"
+      ],
+      "private": true
+    }
+  ]
 }

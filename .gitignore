@@ -4,3 +4,4 @@
 *.pem
 .local/
 dist/
+__pycache__/

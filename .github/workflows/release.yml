@@ -1,0 +1,63 @@
+name: Release public personal bundle
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Personal release tag
+        required: true
+      profiles_ref:
+        description: Exact general profile commit SHA
+        required: true
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: personal
+      - uses: actions/checkout@v4
+        with:
+          repository: johnhenning/outfit
+          ref: main
+          path: outfit
+      - uses: actions/checkout@v4
+        with:
+          repository: johnhenning/outfit-profiles
+          ref: ${{ inputs.profiles_ref }}
+          path: profiles
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: outfit/go.mod
+      - name: Verify general profile commit
+        working-directory: profiles
+        env:
+          PROFILE_COMMIT: ${{ inputs.profiles_ref }}
+        run: test "$(git rev-parse HEAD)" = "$PROFILE_COMMIT"
+      - name: Build validation CLI
+        working-directory: outfit
+        run: go build -o ../outfit-test ./cmd/outfit
+      - name: Test bundling
+        working-directory: personal
+        env:
+          OUTFIT_BINARY: ${{ github.workspace }}/outfit-test
+        run: python3 -m unittest discover -s tests -v
+      - name: Build standalone public personal bundle
+        working-directory: personal
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: python3 scripts/bundle.py --public ../profiles --outfit ../outfit-test --version "$RELEASE_VERSION"
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: personal/dist/outfit-personal_*.tar.gz
+      - name: Create draft release
+        working-directory: personal
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: gh release create "$RELEASE_VERSION" dist/* --target "$GITHUB_SHA" --draft --generate-notes

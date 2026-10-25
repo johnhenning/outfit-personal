@@ -26,7 +26,20 @@ jobs:
         shell: bash
         run: |
           for target in macos-arm64 debian-amd64 fedora-amd64 windows-amd64; do
-            for profile in john-dev john-compute john-media; do
+            for profile in john-compute john-media; do
               go run ./cmd/outfit plan --source ../profiles --personal ../personal --profile "$profile" --target "$target" --json > /dev/null
             done
           done
+          for target in macos-arm64 macos-amd64; do
+            for profile in john-mac-everyday john-mac-dev john-dev; do
+              go run ./cmd/outfit plan --source ../profiles --personal ../personal --profile "$profile" --target "$target" --json > /dev/null
+            done
+          done
+      - name: Build test CLI
+        working-directory: outfit
+        run: go build -o ../outfit-test ./cmd/outfit
+      - name: Test standalone bundle
+        working-directory: personal
+        env:
+          OUTFIT_BINARY: ${{ github.workspace }}/outfit-test
+        run: python3 -m unittest discover -s tests -v
