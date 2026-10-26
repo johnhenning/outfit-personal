@@ -82,10 +82,7 @@
         "raycast",
         "john-everyday-login-items"
       ],
-      "dotfiles": [
-        "ssh",
-        "john-mac-ssh-agent"
-      ],
+      "dotfiles": [],
       "preferred": {
         "browsers": "dia"
       }
@@ -128,16 +125,7 @@
         "iterm2",
         "warp"
       ],
-      "dotfiles": [
-        "shell",
-        "tmux",
-        "gitignore",
-        "ssh",
-        "john-mac-shell",
-        "john-mac-git",
-        "john-mac-neovim",
-        "john-mac-ssh-agent"
-      ],
+      "dotfiles": [],
       "preferred": {
         "browsers": "dia",
         "editors": "vscode",
@@ -182,16 +170,7 @@
         "iterm2",
         "warp"
       ],
-      "dotfiles": [
-        "shell",
-        "tmux",
-        "gitignore",
-        "ssh",
-        "john-mac-shell",
-        "john-mac-git",
-        "john-mac-neovim",
-        "john-mac-ssh-agent"
-      ],
+      "dotfiles": [],
       "preferred": {
         "browsers": "dia",
         "editors": "vscode",
@@ -203,58 +182,15 @@
       "presets": [
         "cloud-ml"
       ],
-      "dotfiles": [
-        "shell",
-        "tmux",
-        "gitignore",
-        "ssh"
-      ]
+      "dotfiles": []
     },
     "john-media": {
       "role": "media",
       "presets": [
         "default"
       ],
-      "dotfiles": [
-        "shell",
-        "tmux",
-        "ssh"
-      ]
+      "dotfiles": []
     }
   },
-  "dotfiles": [
-    {
-      "id": "john-mac-shell",
-      "source": "dotfiles/dot_zshrc.local",
-      "target": ".zshrc.local",
-      "platforms": [
-        "macos"
-      ]
-    },
-    {
-      "id": "john-mac-git",
-      "source": "dotfiles/dot_config/git/config",
-      "target": ".config/git/config",
-      "platforms": [
-        "macos"
-      ]
-    },
-    {
-      "id": "john-mac-neovim",
-      "source": "dotfiles/dot_config/nvim/init.lua",
-      "target": ".config/nvim/init.lua",
-      "platforms": [
-        "macos"
-      ]
-    },
-    {
-      "id": "john-mac-ssh-agent",
-      "source": "dotfiles/private_dot_ssh/config.d/1password.conf",
-      "target": ".ssh/config.d/1password.conf",
-      "platforms": [
-        "macos"
-      ],
-      "private": true
-    }
-  ]
+  "dotfiles": []
 }

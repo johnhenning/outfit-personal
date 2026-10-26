@@ -6,8 +6,12 @@ remaining manual steps.
 
 ## Profile independence
 
-Everyday and Dev have independent app and configuration lists. Neither inherits
+Everyday and Dev have independent app lists. Neither inherits
 the other. Shared apps must be selected explicitly in both profiles.
+
+Personal configuration files now live in `johnhenning/dotfiles`, independently
+of app setup. All personal profiles select zero Outfit dotfiles. Public template
+configs remain optional for general Outfit users.
 
 ## Launch at login
 
