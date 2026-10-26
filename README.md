@@ -23,14 +23,15 @@ will not add apps to Dev. Their empty desktop role supplies no software defaults
 These profiles now select apps only. Personal shell, PATH, tmux, uv, Git and
 the preserved workstation NvChad setup live independently in
 [johnhenning/dotfiles](https://github.com/johnhenning/dotfiles).
-Preview that setup separately:
+Install that setup separately:
 
 ```sh
 curl -fsSL https://johnhenning.dev/tools/dotfiles/install.sh | sh
 ```
 
-Add `--apply` with `sh -s -- --apply` after reviewing. Existing managed configs
-are backed up before replacement. Credentials and private SSH hosts remain local;
+Installation asks for confirmation and backs up existing managed configs before
+replacement. To preview without applying configs, use `sh -s -- --dry-run`
+(or `sh -s -- --preview`) instead of `sh`. Credentials and private SSH hosts remain local;
 the 1Password SSH example is opt-in. Previously published bundles keep their
 original contents; use the new app-only release when available.
 
