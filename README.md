@@ -26,7 +26,7 @@ the preserved workstation NvChad setup live independently in
 Preview that setup separately:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/johnhenning/dotfiles/main/install.sh | sh
+curl -fsSL https://johnhenning.dev/tools/dotfiles/install.sh | sh
 ```
 
 Add `--apply` with `sh -s -- --apply` after reviewing. Existing managed configs
