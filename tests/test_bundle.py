@@ -77,5 +77,18 @@ class BundleTests(unittest.TestCase):
             self.build()
 
 
+class PersonalScopeTests(unittest.TestCase):
+    def test_personal_profiles_select_software_without_competing_dotfile_managers(self):
+        public = Path(os.environ.get('PUBLIC_PROFILES_DIRECTORY', ROOT.parent / 'outfit-profiles'))
+        engine = str(Path(os.environ.get('OUTFIT_BINARY', ROOT.parent / 'outfit/bin/outfit')).resolve())
+        for profile in ('john-mac-everyday', 'john-mac-dev', 'john-dev', 'john-compute', 'john-media'):
+            with self.subTest(profile=profile):
+                plan = json.loads(subprocess.check_output([
+                    engine, 'plan', '--source', str(public), '--personal', str(ROOT),
+                    '--profile', profile, '--target', 'macos-arm64', '--json']))
+                self.assertTrue(plan['actions'])
+                self.assertFalse(any(action['kind'] == 'dotfile' for action in plan['actions']))
+
+
 if __name__ == '__main__':
     unittest.main()

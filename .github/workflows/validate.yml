@@ -42,4 +42,5 @@ jobs:
         working-directory: personal
         env:
           OUTFIT_BINARY: ${{ github.workspace }}/outfit-test
+          PUBLIC_PROFILES_DIRECTORY: ${{ github.workspace }}/profiles
         run: python3 -m unittest discover -s tests -v

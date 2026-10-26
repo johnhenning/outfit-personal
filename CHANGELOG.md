@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Move personal shell, PATH, Git, tmux, uv and preserved NvChad configuration to
+  the standalone public `johnhenning/dotfiles` repository. All personal profiles
+  now select software only; app choices remain unchanged. Older published
+  bundles retain their original dotfiles.
 - Publish only nonsecret profile choices; defer private data access to account sign-in.
 - Add independent Mac Everyday and Dev profiles with explicit reviewed selections.
 - Keep `john-dev` as a Mac Dev compatibility name; it no longer targets all platforms.
